@@ -1,21 +1,17 @@
-'use strict';
+var path = require('path');
+
 module.exports = {
-    entry: [
-        "./src/entry.js"
-    ],
+    entry: './src/entry.js',
     output: {
-        path: './out/',
-        filename: "bundle.js"
+        path: path.join(__dirname, '/out'),
+        filename: 'bundle.js'
     },
-    externals: {
-        'react': 'React'
+    resolve: {
+        extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [
-            { test: /\.js$/, loader: "jsx!babel", include: /src/},
-            { test: /\.css$/, loader: "style!css"},
-            { test: /\.scss$/, loader: "style!css!sass"},
-            { test: /\.(png|jpg)$/, loader: 'url?limit=8192'}
+            { test: /\.js|jsx$/, loaders: ['babel'] }
         ]
     }
-};
+}
