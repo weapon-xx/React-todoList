@@ -1,0 +1,55 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.commentBox{
+  padding-top: 50px;
+
+  h1{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+}
+
+.commentForm{
+  margin-bottom: 20px;
+  div{
+    width: 300px;
+    margin: 0 auto;
+    input{
+      display: block;
+      width: 100%;
+      line-height: 30px;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+  .submit-btn{
+    display: block;
+    width: 200px;
+    line-height: 30px;
+    border: none;
+    margin: 20px auto;
+    outline: none;
+    background-color: #77d277;
+    color: #fff;
+    cursor: pointer;
+    &:hover{
+      background-color: #57a057;
+    }
+  }
+}
+
+
+.commentList{
+  .comment{
+    margin-bottom: 10px;
+  }
+  p,h3{
+    text-align: center;
+  }
+
+}

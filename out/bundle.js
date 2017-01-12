@@ -62,69 +62,168 @@
 
 	var _reactDom = __webpack_require__(32);
 
-	var List = (function (_Component) {
-	  _inherits(List, _Component);
+	__webpack_require__(178);
 
-	  function List(props) {
-	    _classCallCheck(this, List);
+	var converter = new Showdown.converter();
 
-	    _get(Object.getPrototypeOf(List.prototype), 'constructor', this).call(this, props);
-	    this.state = {
-	      list: [{
-	        value: 'john'
-	      }, {
-	        value: 'allen'
-	      }, {
-	        value: 'kim'
-	      }, {
-	        value: 'morning'
-	      }]
-	    };
-	  }
-
-	  _createClass(List, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        this.state.list.forEach(function (item) {
-	          return _react2['default'].createElement(
-	            'div',
-	            null,
-	            'Hello, ',
-	            item.value,
-	            '!'
-	          );
-	        })
-	      );
-	    }
-	  }]);
-
-	  return List;
-	})(_react.Component);
-
-	var CommentBox = (function (_Component2) {
-	  _inherits(CommentBox, _Component2);
+	var CommentBox = (function (_Component) {
+	  _inherits(CommentBox, _Component);
 
 	  function CommentBox(props) {
 	    _classCallCheck(this, CommentBox);
 
 	    _get(Object.getPrototypeOf(CommentBox.prototype), 'constructor', this).call(this, props);
+	    this.state = {
+	      data: [{ author: "John", text: "This is first todo" }, { author: "Allen", text: "This is second todo" }]
+	    };
 	  }
 
 	  _createClass(CommentBox, [{
+	    key: 'handleCommentSubmit',
+	    value: function handleCommentSubmit(comment) {
+	      console.log('come from son Component');
+	      var data = Object.assign([], this.state.data);
+	      data.push(comment);
+	      this.setState({ data: data });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'commentBox' },
-	        'Hello, world! I am a CommentBox.'
+	        _react2['default'].createElement(
+	          'h1',
+	          null,
+	          'React-todoList'
+	        ),
+	        _react2['default'].createElement(CommentForm, { data: this.state.data, onCommentSubmit: this.handleCommentSubmit.bind(this) }),
+	        _react2['default'].createElement(CommentList, { data: this.state.data })
 	      );
 	    }
 	  }]);
 
 	  return CommentBox;
+	})(_react.Component);
+
+	var CommentForm = (function (_Component2) {
+	  _inherits(CommentForm, _Component2);
+
+	  function CommentForm(props) {
+	    _classCallCheck(this, CommentForm);
+
+	    _get(Object.getPrototypeOf(CommentForm.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(CommentForm, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+
+	      console.log(this.refs);
+
+	      var author = this.refs.author.value.trim();
+	      var text = this.refs.text.value.trim();
+
+	      if (!author && !text) {
+	        alert('please confirm input box non-blank');
+	        return;
+	      }
+
+	      //pass input value to father component
+	      this.props.onCommentSubmit({
+	        author: author,
+	        text: text
+	      });
+
+	      //clear input
+	      this.refs.author.value = '';
+	      this.refs.text.value = '';
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'form',
+	        { className: 'commentForm', onSubmit: this.handleSubmit.bind(this) },
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _react2['default'].createElement('input', { type: 'text', placeholder: 'Name', ref: 'author', required: true })
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _react2['default'].createElement('input', { type: 'text', placeholder: 'What to do...', ref: 'text', required: true })
+	        ),
+	        _react2['default'].createElement('input', { type: 'submit', value: 'Post', className: 'submit-btn' })
+	      );
+	    }
+	  }]);
+
+	  return CommentForm;
+	})(_react.Component);
+
+	var CommentList = (function (_Component3) {
+	  _inherits(CommentList, _Component3);
+
+	  function CommentList(props) {
+	    _classCallCheck(this, CommentList);
+
+	    _get(Object.getPrototypeOf(CommentList.prototype), 'constructor', this).call(this, props);
+	    this.state = {
+	      count: 0
+	    };
+	  }
+
+	  _createClass(CommentList, [{
+	    key: 'render',
+	    value: function render() {
+	      var commentNodes = this.props.data.map(function (comment, index) {
+	        return _react2['default'].createElement(
+	          Comment,
+	          { author: comment.author, key: index },
+	          comment.text
+	        );
+	      });
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'commentList' },
+	        commentNodes
+	      );
+	    }
+	  }]);
+
+	  return CommentList;
+	})(_react.Component);
+
+	var Comment = (function (_Component4) {
+	  _inherits(Comment, _Component4);
+
+	  function Comment() {
+	    _classCallCheck(this, Comment);
+
+	    _get(Object.getPrototypeOf(Comment.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(Comment, [{
+	    key: 'render',
+	    value: function render() {
+	      var rawMarkup = converter.makeHtml(this.props.children.toString());
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'comment' },
+	        _react2['default'].createElement(
+	          'h3',
+	          null,
+	          this.props.author
+	        ),
+	        _react2['default'].createElement('span', { dangerouslySetInnerHTML: { __html: rawMarkup } })
+	      );
+	    }
+	  }]);
+
+	  return Comment;
 	})(_react.Component);
 
 	(0, _reactDom.render)(_react2['default'].createElement(CommentBox, null), document.getElementById('container'));
@@ -21537,6 +21636,319 @@
 
 	module.exports = ReactDOMInvalidARIAHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(179);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(181)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.0.14.5@css-loader/index.js!./../../node_modules/.1.0.4@sass-loader/index.js!./main.scss", function() {
+				var newContent = require("!!./../../node_modules/.0.14.5@css-loader/index.js!./../../node_modules/.1.0.4@sass-loader/index.js!./main.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(180)();
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0; }\n\n.commentBox {\n  padding-top: 50px; }\n  .commentBox h1 {\n    text-align: center;\n    margin-bottom: 20px; }\n\n.commentForm {\n  margin-bottom: 20px; }\n  .commentForm div {\n    width: 300px;\n    margin: 0 auto; }\n    .commentForm div input {\n      display: block;\n      width: 100%;\n      line-height: 30px;\n      outline: none;\n      border: none;\n      border-bottom: 1px solid #ccc; }\n  .commentForm .submit-btn {\n    display: block;\n    width: 200px;\n    line-height: 30px;\n    border: none;\n    margin: 20px auto;\n    outline: none;\n    background-color: #77d277;\n    color: #fff;\n    cursor: pointer; }\n    .commentForm .submit-btn:hover {\n      background-color: #57a057; }\n\n.commentList .comment {\n  margin-bottom: 10px; }\n\n.commentList p, .commentList h3 {\n  text-align: center; }\n", ""]);
+
+/***/ },
+/* 180 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	"use strict";
+
+	module.exports = function () {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for (var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if (item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function (modules, mediaQuery) {
+			if (typeof modules === "string") modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for (var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if (typeof id === "number") alreadyImportedModules[id] = true;
+			}
+			for (i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if (mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if (mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
 
 /***/ }
 /******/ ]);
