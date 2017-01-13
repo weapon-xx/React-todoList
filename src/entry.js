@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import './styles/main.scss'
-const converter = new Showdown.converter()
+// const converter = new Showdown.converter()
 
 class CommentBox extends Component {
   constructor(props) {
@@ -99,11 +99,12 @@ class CommentList extends Component {
 
 class Comment extends Component {
   render() {
-    let rawMarkup = converter.makeHtml(this.props.children.toString())
+    // let rawMarkup = converter.makeHtml(this.props.children.toString())
+    // <div dangerouslySetInnerHTML={{ __html: rawMarkup }} />
     return (
       <div className="comment">
-        <h3>{ this.props.author }</h3>
-        <span dangerouslySetInnerHTML={{ __html: rawMarkup }} />
+        <h2>{ this.props.author }</h2>
+        <p>{ this.props.children }</p>
       </div>
     )
   }
