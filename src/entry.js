@@ -15,7 +15,7 @@ class CommentBox extends Component {
   }
 
   handleCommentSubmit(comment){
-    console.log('come from son Component')
+    // console.log('come from son Component')
     var data = Object.assign([], this.state.data)
     data.push(comment)
     this.setState({ data: data })
@@ -39,7 +39,7 @@ class CommentForm extends Component {
   handleSubmit(e){
     e.preventDefault()
 
-    console.log(this.refs)
+    // console.log(this.refs)
 
     let author = this.refs.author.value.trim()
     let text = this.refs.text.value.trim()
