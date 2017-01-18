@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import './styles/main.scss'
 
 class ListBox extends Component {
   constructor(props) {
@@ -12,19 +11,16 @@ class ListBox extends Component {
       ]
     }
   }
-
-  handleCommentSubmit(todo){
-    // console.log('come from son Component')
+  handleCommentSubmit(todo) {
     let data = Object.assign([], this.state.data)
     data.push(todo)
     this.setState({ data: data })
   }
-
   render() {
-    return (
-      <div className="commentBox">
+    return(
+      <div>
         <h1>React-todoList</h1>
-        <ListForm onCommentSubmit={ this.handleCommentSubmit.bind(this) }/>
+        <ListForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
         <List data={this.state.data} />
       </div>
     )
@@ -55,9 +51,10 @@ class ListForm extends Component {
     this.refs.author.value = ''
     this.refs.text.value = ''
   }
+
   render() {
-    return (
-      <form className="commentForm" onSubmit={this.handleSubmit.bind(this)}>
+    return(
+      <form onSubmit={this.handleSubmit.bind(this)}>
         <div>
           <input type="text" placeholder="Name" ref="author" required/>
         </div>
@@ -73,31 +70,21 @@ class ListForm extends Component {
 class List extends Component {
   render() {
     let todoNodes = this.props.data.map(function(item, index){
-      return (
-        <Todo author={ item.author } key={index}>
-          {item.text}
-        </Todo>
+      return(
+        <div key={index}>
+          <h2>{ item.author }</h2>
+          <p>{ item.text }</p>
+        </div>
       )
     })
-    return (
-      <div className="commentList">
-        { todoNodes }
-      </div>
-    )
-  }
-}
-
-class Todo extends Component {
-  render() {
-    return (
-      <div className="comment">
-        <h2>{ this.props.author }</h2>
-        <p>{ this.props.children }</p>
+    return(
+      <div>
+        {todoNodes}
       </div>
     )
   }
 }
 
 render(
-  <ListBox />, document.getElementById('container')
+  <ListBox />,document.getElementById('container')
 )

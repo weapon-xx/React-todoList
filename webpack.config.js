@@ -1,10 +1,13 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/entry.js',
+    entry: {
+      entry: './src/entry.js',
+      example: './src/example.js'
+    },
     output: {
-        path: path.join(__dirname, '/out'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, '/dist'),
+        filename: '[name].bundle.js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx']

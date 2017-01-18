@@ -64,26 +64,24 @@
 
 	__webpack_require__(178);
 
-	// const converter = new Showdown.converter()
+	var ListBox = (function (_Component) {
+	  _inherits(ListBox, _Component);
 
-	var CommentBox = (function (_Component) {
-	  _inherits(CommentBox, _Component);
+	  function ListBox(props) {
+	    _classCallCheck(this, ListBox);
 
-	  function CommentBox(props) {
-	    _classCallCheck(this, CommentBox);
-
-	    _get(Object.getPrototypeOf(CommentBox.prototype), 'constructor', this).call(this, props);
+	    _get(Object.getPrototypeOf(ListBox.prototype), 'constructor', this).call(this, props);
 	    this.state = {
 	      data: [{ author: "John", text: "This is first todo" }, { author: "Allen", text: "This is second todo" }]
 	    };
 	  }
 
-	  _createClass(CommentBox, [{
+	  _createClass(ListBox, [{
 	    key: 'handleCommentSubmit',
-	    value: function handleCommentSubmit(comment) {
+	    value: function handleCommentSubmit(todo) {
 	      // console.log('come from son Component')
 	      var data = Object.assign([], this.state.data);
-	      data.push(comment);
+	      data.push(todo);
 	      this.setState({ data: data });
 	    }
 	  }, {
@@ -97,25 +95,25 @@
 	          null,
 	          'React-todoList'
 	        ),
-	        _react2['default'].createElement(CommentForm, { data: this.state.data, onCommentSubmit: this.handleCommentSubmit.bind(this) }),
-	        _react2['default'].createElement(CommentList, { data: this.state.data })
+	        _react2['default'].createElement(ListForm, { onCommentSubmit: this.handleCommentSubmit.bind(this) }),
+	        _react2['default'].createElement(List, { data: this.state.data })
 	      );
 	    }
 	  }]);
 
-	  return CommentBox;
+	  return ListBox;
 	})(_react.Component);
 
-	var CommentForm = (function (_Component2) {
-	  _inherits(CommentForm, _Component2);
+	var ListForm = (function (_Component2) {
+	  _inherits(ListForm, _Component2);
 
-	  function CommentForm(props) {
-	    _classCallCheck(this, CommentForm);
+	  function ListForm() {
+	    _classCallCheck(this, ListForm);
 
-	    _get(Object.getPrototypeOf(CommentForm.prototype), 'constructor', this).call(this, props);
+	    _get(Object.getPrototypeOf(ListForm.prototype), 'constructor', this).apply(this, arguments);
 	  }
 
-	  _createClass(CommentForm, [{
+	  _createClass(ListForm, [{
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
@@ -130,7 +128,7 @@
 	        return;
 	      }
 
-	      //pass input value to father component
+	      //pass value to ListBox
 	      this.props.onCommentSubmit({
 	        author: author,
 	        text: text
@@ -161,56 +159,51 @@
 	    }
 	  }]);
 
-	  return CommentForm;
+	  return ListForm;
 	})(_react.Component);
 
-	var CommentList = (function (_Component3) {
-	  _inherits(CommentList, _Component3);
+	var List = (function (_Component3) {
+	  _inherits(List, _Component3);
 
-	  function CommentList(props) {
-	    _classCallCheck(this, CommentList);
+	  function List() {
+	    _classCallCheck(this, List);
 
-	    _get(Object.getPrototypeOf(CommentList.prototype), 'constructor', this).call(this, props);
-	    this.state = {
-	      count: 0
-	    };
+	    _get(Object.getPrototypeOf(List.prototype), 'constructor', this).apply(this, arguments);
 	  }
 
-	  _createClass(CommentList, [{
+	  _createClass(List, [{
 	    key: 'render',
 	    value: function render() {
-	      var commentNodes = this.props.data.map(function (comment, index) {
+	      var todoNodes = this.props.data.map(function (item, index) {
 	        return _react2['default'].createElement(
-	          Comment,
-	          { author: comment.author, key: index },
-	          comment.text
+	          Todo,
+	          { author: item.author, key: index },
+	          item.text
 	        );
 	      });
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'commentList' },
-	        commentNodes
+	        todoNodes
 	      );
 	    }
 	  }]);
 
-	  return CommentList;
+	  return List;
 	})(_react.Component);
 
-	var Comment = (function (_Component4) {
-	  _inherits(Comment, _Component4);
+	var Todo = (function (_Component4) {
+	  _inherits(Todo, _Component4);
 
-	  function Comment() {
-	    _classCallCheck(this, Comment);
+	  function Todo() {
+	    _classCallCheck(this, Todo);
 
-	    _get(Object.getPrototypeOf(Comment.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(Todo.prototype), 'constructor', this).apply(this, arguments);
 	  }
 
-	  _createClass(Comment, [{
+	  _createClass(Todo, [{
 	    key: 'render',
 	    value: function render() {
-	      // let rawMarkup = converter.makeHtml(this.props.children.toString())
-	      // <div dangerouslySetInnerHTML={{ __html: rawMarkup }} />
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'comment' },
@@ -228,10 +221,10 @@
 	    }
 	  }]);
 
-	  return Comment;
+	  return Todo;
 	})(_react.Component);
 
-	(0, _reactDom.render)(_react2['default'].createElement(CommentBox, null), document.getElementById('container'));
+	(0, _reactDom.render)(_react2['default'].createElement(ListBox, null), document.getElementById('container'));
 
 /***/ },
 /* 1 */
