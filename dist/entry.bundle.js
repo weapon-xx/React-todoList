@@ -77,11 +77,19 @@
 	  }
 
 	  _createClass(ListBox, [{
-	    key: 'handleCommentSubmit',
-	    value: function handleCommentSubmit(todo) {
+	    key: 'handleTodoSubmit',
+	    value: function handleTodoSubmit(todo) {
 	      // console.log('come from son Component')
 	      var data = Object.assign([], this.state.data);
 	      data.push(todo);
+	      this.setState({ data: data });
+	    }
+	  }, {
+	    key: 'handleDeleteTodo',
+	    value: function handleDeleteTodo(e) {
+	      var _index = e.target.parentNode.getAttribute('data-index');
+	      var data = Object.assign([], this.state.data);
+	      data.splice(_index, 1);
 	      this.setState({ data: data });
 	    }
 	  }, {
@@ -95,8 +103,8 @@
 	          null,
 	          'React-todoList'
 	        ),
-	        _react2['default'].createElement(ListForm, { onCommentSubmit: this.handleCommentSubmit.bind(this) }),
-	        _react2['default'].createElement(List, { data: this.state.data })
+	        _react2['default'].createElement(ListForm, { onTodoSubmit: this.handleTodoSubmit.bind(this) }),
+	        _react2['default'].createElement(List, { data: this.state.data, onDeleteTodo: this.handleDeleteTodo.bind(this) })
 	      );
 	    }
 	  }]);
@@ -129,7 +137,7 @@
 	      }
 
 	      //pass value to ListBox
-	      this.props.onCommentSubmit({
+	      this.props.onTodoSubmit({
 	        author: author,
 	        text: text
 	      });
@@ -174,10 +182,11 @@
 	  _createClass(List, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this = this;
 	      var todoNodes = this.props.data.map(function (item, index) {
 	        return _react2['default'].createElement(
 	          Todo,
-	          { author: item.author, key: index },
+	          { author: item.author, key: index, index: index, onDeleteTodo: _this.props.onDeleteTodo },
 	          item.text
 	        );
 	      });
@@ -206,10 +215,10 @@
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        { className: 'todo' },
+	        { className: 'todo', 'data-index': this.props.index },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: 'delete', onClick: '' },
+	          { className: 'delete', onClick: this.props.onDeleteTodo },
 	          'X'
 	        ),
 	        _react2['default'].createElement(
