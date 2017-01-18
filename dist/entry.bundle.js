@@ -89,7 +89,7 @@
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        { className: 'commentBox' },
+	        { className: 'ListBox' },
 	        _react2['default'].createElement(
 	          'h1',
 	          null,
@@ -143,7 +143,7 @@
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'form',
-	        { className: 'commentForm', onSubmit: this.handleSubmit.bind(this) },
+	        { className: 'ListForm', onSubmit: this.handleSubmit.bind(this) },
 	        _react2['default'].createElement(
 	          'div',
 	          null,
@@ -183,7 +183,7 @@
 	      });
 	      return _react2['default'].createElement(
 	        'div',
-	        { className: 'commentList' },
+	        { className: 'todoWrap' },
 	        todoNodes
 	      );
 	    }
@@ -206,7 +206,12 @@
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        { className: 'comment' },
+	        { className: 'todo' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'delete', onClick: '' },
+	          'X'
+	        ),
 	        _react2['default'].createElement(
 	          'h2',
 	          null,
@@ -21686,7 +21691,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(180)();
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0; }\n\n.commentBox {\n  padding-top: 50px; }\n  .commentBox h1 {\n    text-align: center;\n    margin-bottom: 20px; }\n\n.commentForm {\n  margin-bottom: 20px; }\n  .commentForm div {\n    width: 300px;\n    margin: 0 auto 10px; }\n    .commentForm div input {\n      display: block;\n      width: 100%;\n      line-height: 30px;\n      outline: none;\n      border: none;\n      border-bottom: 1px dashed #ccc;\n      font-size: 16px; }\n    .commentForm div textarea {\n      border: none;\n      width: 100%;\n      outline: none;\n      font-size: 16px;\n      border-bottom: 1px dashed #ccc;\n      height: 100px; }\n  .commentForm .submit-btn {\n    display: block;\n    width: 200px;\n    line-height: 35px;\n    border: none;\n    margin: 20px auto;\n    outline: none;\n    background-color: #77d277;\n    color: #fff;\n    cursor: pointer;\n    font-size: 16px; }\n    .commentForm .submit-btn:hover {\n      background-color: #57a057; }\n\n.commentList {\n  width: 300px;\n  margin: 0 auto; }\n  .commentList .comment {\n    border-bottom: 1px dashed #ccc;\n    margin-bottom: 15px;\n    padding-bottom: 5px; }\n  .commentList p, .commentList h1, .commentList h2, .commentList h3, .commentList h4, .commentList h5, .commentList h6, .commentList ul, .commentList li {\n    text-align: center; }\n", ""]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0; }\n\n.ListBox {\n  padding-top: 50px; }\n  .ListBox h1 {\n    text-align: center;\n    margin-bottom: 20px; }\n\n.ListForm {\n  margin-bottom: 20px; }\n  .ListForm div {\n    width: 300px;\n    margin: 0 auto 10px; }\n    .ListForm div input {\n      display: block;\n      width: 100%;\n      line-height: 30px;\n      outline: none;\n      border: none;\n      border-bottom: 1px dashed #ccc;\n      font-size: 16px; }\n    .ListForm div textarea {\n      border: none;\n      width: 100%;\n      outline: none;\n      font-size: 16px;\n      border-bottom: 1px dashed #ccc;\n      height: 100px; }\n  .ListForm .submit-btn {\n    display: block;\n    width: 200px;\n    line-height: 35px;\n    border: none;\n    margin: 20px auto;\n    outline: none;\n    background-color: #77d277;\n    color: #fff;\n    cursor: pointer;\n    font-size: 16px; }\n    .ListForm .submit-btn:hover {\n      background-color: #57a057; }\n\n.todoWrap {\n  width: 300px;\n  margin: 0 auto; }\n  .todoWrap .todo {\n    border-bottom: 1px dashed #ccc;\n    margin-bottom: 15px;\n    padding-bottom: 5px;\n    position: relative; }\n    .todoWrap .todo .delete {\n      color: red;\n      position: absolute;\n      right: 0;\n      top: 5px;\n      cursor: pointer;\n      width: 25px;\n      line-height: 25px;\n      text-align: center; }\n      .todoWrap .todo .delete:hover {\n        background-color: #eee; }\n  .todoWrap p, .todoWrap h1, .todoWrap h2, .todoWrap h3, .todoWrap h4, .todoWrap h5, .todoWrap h6, .todoWrap ul, .todoWrap li {\n    text-align: center; }\n", ""]);
 
 /***/ },
 /* 180 */

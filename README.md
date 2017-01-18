@@ -5,4 +5,4 @@ a simple todo-list write by react/webpack/babel etc
 
 ### Run & build
 - npm install
-- npm run dev
+- npm run dev             

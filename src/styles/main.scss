@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.commentBox{
+.ListBox{
   padding-top: 50px;
 
   h1{
@@ -13,7 +13,7 @@
 
 }
 
-.commentForm{
+.ListForm{
   margin-bottom: 20px;
   div{
     width: 300px;
@@ -54,13 +54,27 @@
 }
 
 
-.commentList{
+.todoWrap{
   width: 300px;
   margin: 0 auto;
-  .comment{
+  .todo{
     border-bottom: 1px dashed #ccc;
     margin-bottom: 15px;
     padding-bottom: 5px;
+    position: relative;
+    .delete{
+      color: red;
+      position: absolute;
+      right: 0;
+      top: 5px;
+      cursor: pointer;
+      width: 25px;
+      line-height: 25px;
+      text-align: center;
+      &:hover{
+        background-color: #eee;
+      }
+    }
   }
   p,h1,h2,h3,h4,h5,h6,ul,li{
     text-align: center;

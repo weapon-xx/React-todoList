@@ -13,7 +13,7 @@ class ListBox extends Component {
     }
   }
 
-  handleCommentSubmit(todo){
+  handleTodoSubmit(todo){
     // console.log('come from son Component')
     let data = Object.assign([], this.state.data)
     data.push(todo)
@@ -22,9 +22,9 @@ class ListBox extends Component {
 
   render() {
     return (
-      <div className="commentBox">
+      <div className="ListBox">
         <h1>React-todoList</h1>
-        <ListForm onCommentSubmit={ this.handleCommentSubmit.bind(this) }/>
+        <ListForm onTodoSubmit={ this.handleTodoSubmit.bind(this) }/>
         <List data={this.state.data} />
       </div>
     )
@@ -46,7 +46,7 @@ class ListForm extends Component {
     }
 
     //pass value to ListBox
-    this.props.onCommentSubmit({
+    this.props.onTodoSubmit({
       author: author,
       text: text
     })
@@ -57,7 +57,7 @@ class ListForm extends Component {
   }
   render() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit.bind(this)}>
+      <form className="ListForm" onSubmit={this.handleSubmit.bind(this)}>
         <div>
           <input type="text" placeholder="Name" ref="author" required/>
         </div>
@@ -80,7 +80,7 @@ class List extends Component {
       )
     })
     return (
-      <div className="commentList">
+      <div className="todoWrap">
         { todoNodes }
       </div>
     )
@@ -90,7 +90,8 @@ class List extends Component {
 class Todo extends Component {
   render() {
     return (
-      <div className="comment">
+      <div className="todo">
+        <div className="delete" onClick={this.props.}>X</div>
         <h2>{ this.props.author }</h2>
         <p>{ this.props.children }</p>
       </div>

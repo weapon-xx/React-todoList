@@ -11,7 +11,7 @@ class ListBox extends Component {
       ]
     }
   }
-  handleCommentSubmit(todo) {
+  handleTodoSubmit(todo) {
     let data = Object.assign([], this.state.data)
     data.push(todo)
     this.setState({ data: data })
@@ -20,7 +20,7 @@ class ListBox extends Component {
     return(
       <div>
         <h1>React-todoList</h1>
-        <ListForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
+        <ListForm onTodoSubmit={this.handleTodoSubmit.bind(this)} />
         <List data={this.state.data} />
       </div>
     )
@@ -42,7 +42,7 @@ class ListForm extends Component {
     }
 
     //pass value to ListBox
-    this.props.onCommentSubmit({
+    this.props.onTodoSubmit({
       author: author,
       text: text
     })

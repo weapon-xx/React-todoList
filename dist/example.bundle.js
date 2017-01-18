@@ -75,8 +75,8 @@
 	  }
 
 	  _createClass(ListBox, [{
-	    key: 'handleCommentSubmit',
-	    value: function handleCommentSubmit(todo) {
+	    key: 'handleTodoSubmit',
+	    value: function handleTodoSubmit(todo) {
 	      var data = Object.assign([], this.state.data);
 	      data.push(todo);
 	      this.setState({ data: data });
@@ -92,7 +92,7 @@
 	          null,
 	          'React-todoList'
 	        ),
-	        _react2['default'].createElement(ListForm, { onCommentSubmit: this.handleCommentSubmit.bind(this) }),
+	        _react2['default'].createElement(ListForm, { onTodoSubmit: this.handleTodoSubmit.bind(this) }),
 	        _react2['default'].createElement(List, { data: this.state.data })
 	      );
 	    }
@@ -126,7 +126,7 @@
 	      }
 
 	      //pass value to ListBox
-	      this.props.onCommentSubmit({
+	      this.props.onTodoSubmit({
 	        author: author,
 	        text: text
 	      });
