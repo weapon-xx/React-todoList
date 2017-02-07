@@ -1,5 +1,5 @@
 ### React-Todolist
-A simple todo-list write by React
+A simple todo-list with React
 
 ![Screenshots](https://github.com/weapon-xx/React-todoList/blob/master/Screenshots.gif)
 
